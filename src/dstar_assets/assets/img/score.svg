@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="13px" viewBox="0 0 21 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>折线图</title>
+    <g id="pc" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="PC" transform="translate(-415.000000, -913.000000)" fill-rule="nonzero">
+            <g id="折线图" transform="translate(416.000000, 914.000000)">
+                <polygon id="路径" stroke="#0072E9" points="0 4.8807515 4.35276792 0.630190598 4.90211579 1.16671902 0.549256491 5.4171907"></polygon>
+                <polygon id="路径" stroke="#0072E9" transform="translate(8.908313, 3.080428) rotate(2.000000) translate(-8.908313, -3.080428) " points="4.00629903 1.38426261 4.35179457 0.634089303 13.8103264 4.77659333 13.4648309 5.52676663"></polygon>
+                <polygon id="路径" stroke="#0072E9" fill="#0073E1" points="12.8023209 5.00374512 18.2057935 0 18.7849905 0.596469075 13.3816093 5.60030342"></polygon>
+                <polygon id="路径" stroke="#2BD876" fill="#69D480" points="0.214929075 10.0308683 4.56778837 5.7803074 5.11704303 6.31683582 0.764275116 10.5673075"></polygon>
+                <polygon id="路径" stroke="#2BD876" fill="#69D480" transform="translate(9.295457, 8.384368) rotate(2.000000) translate(-9.295457, -8.384368) " points="4.39344381 6.68820237 4.73893935 5.93802907 14.1974712 10.0805331 13.8519756 10.8307064"></polygon>
+                <polygon id="路径" stroke="#2BD876" transform="translate(16.008665, 7.950313) rotate(-3.000000) translate(-16.008665, -7.950313) " points="13.0201901 10.1505441 18.4172556 5.15288835 18.9971403 5.75008218 13.6001662 10.747738"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

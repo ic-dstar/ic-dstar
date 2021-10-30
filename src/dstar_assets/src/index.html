@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Get your favorite Internet Identity numbers at Dstar -  Dstar</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/reponse.css"/>
+		<!-- <link rel="icon" type="text/css" href="/favicon.png"/> -->
+		<link rel="icon" type="text/css" href="https://imgpp.com/images/2021/10/26/logo.png"/>
+	</head>
+	<body>
+		<div id="tip">
+			<div class="layout flex">
+				<p>Please make sure your plug version > = 0.4.1, otherwise please upgrade the plug!</p>
+				<i class="closetip"></i>
+			</div>
+		</div>
+		<div class="layout header">
+			<div class="logo"><a href="/"><img src="/img/logo.svg" /></a></div>
+			<div class="connect">
+				<div class="box" id="plugconnect">
+					connect to plug
+				</div>
+				<div class="box" id="order" style="display: none;">
+					<!-- uyrhg-t23vc... <i class="down"></i> -->
+				</div>
+			</div>
+		</div>
+		<div class="orderfld">
+			<div class="orderbox">
+				<div class="title flex">
+					<div>Transations <i id="ii-tx-count">0</i> <a id="refresh" href="javascript:void(0)">click to refresh</a></div>
+					<div class="star">
+						<img src="/img/star.svg" ><span id="ii-user-star"></span>
+					</div>
+					<!-- <div class="logout">logout</div> -->
+				</div>
+				<div class="transation">
+				<table class="table">
+					<thead>
+					    <tr class="trbg">
+								<th>II ID</th>
+								<!-- <th>Tx Hash</th> -->
+								<th>From(Adress)</th>
+								<th>To(Adress)</th>
+								<th>Timestamp</th>
+								<th>Amount</th>
+								<!-- <th>Fee</th> -->
+								<th>Seed Phrase</th>
+					    </tr>
+						<tbody id="ii-order-list">
+						</tbody>
+					</thead>
+				</table>
+				<div class="loading" style="display: none;">
+					<div class="loader"></div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="w100 banner-bg">
+			<div class="banner">
+				<div>
+					<h1>Get your favorite Internet Identity<br>numbers at Dstar<br /></h1>
+					<p></p><br>
+					<a href="https://support.dstar.app/#/faq" target="_blank">Dstar FAQs</a>
+				</div>
+				<div><img src="img/pic-banner.png"></div>
+			</div>
+		</div>
+		<div class="layout">
+			<div class="searchfld">
+				<input type="text" placeholder="Please Input II Number" class="input" />
+				<button class="sbtn">Search</button>
+			</div>
+		</div>
+		<div class="layout flex mobile">
+			<h2>Internet Identity</h2>
+			<div class="fliter flex">
+				<div class="item no-bg" id="all-select">
+					All
+				</div>
+				<div class="item" id="itype-select">
+					Type
+					<ul>
+						<li><a href="javascript:void(0)" data="BBBBB">BBBBB</a></li>
+						<li><a href="javascript:void(0)" data="ABBBB">ABBBB</a></li>
+						<li><a href="javascript:void(0)" data="BBBBA">BBBBA</a></li>
+						<li><a href="javascript:void(0)" data="ABBBA">ABBBA</a></li>
+						<li><a href="javascript:void(0)" data="BBBAA">BBBAA</a></li>
+						<li><a href="javascript:void(0)" data="AABBB">AABBB</a></li>
+						<li><a href="javascript:void(0)" data="BBABB">BBABB</a></li>
+						<li><a href="javascript:void(0)" data="BBBAB">BBBAB</a></li>
+						<li><a href="javascript:void(0)" data="BABBB">BABBB</a></li>
+						<li><a href="javascript:void(0)" data="BBAAB">BBAAB</a></li>
+						<li><a href="javascript:void(0)" data="BAABB">BAABB</a></li>
+						<li><a href="javascript:void(0)" data="ABABB">ABABB</a></li>
+						<li><a href="javascript:void(0)" data="BABBA">BABBA</a></li>
+						<li><a href="javascript:void(0)" data="ABBAB">ABBAB</a></li>
+						<li><a href="javascript:void(0)" data="BBABA">BBABA</a></li>
+						<li><a href="javascript:void(0)" data="BABAB">BABAB</a></li>
+						<li><a href="javascript:void(0)" data="ACBBB">ACBBB</a></li>
+						<li><a href="javascript:void(0)" data="AABBC">AABBC</a></li>
+						<li><a href="javascript:void(0)" data="AACBB">AACBB</a></li>
+						<li><a href="javascript:void(0)" data="ABBBC">ABBBC</a></li>
+						<li><a href="javascript:void(0)" data="CAABB">CAABB</a></li>
+						<li><a href="javascript:void(0)" data="BBBAC">BBBAC</a></li>
+						<li><a href="javascript:void(0)" data="ABBCB">ABBCB</a></li>
+						<li><a href="javascript:void(0)" data="ABCBB">ABCBB</a></li>
+						<li><a href="javascript:void(0)" data="BAABC">BAABC</a></li>
+						<li><a href="javascript:void(0)" data="ACABB">ACABB</a></li>
+						<li><a href="javascript:void(0)" data="BACBB">BACBB</a></li>
+						<li><a href="javascript:void(0)" data="CABBA">CABBA</a></li>
+						<li><a href="javascript:void(0)" data="BBACB">BBACB</a></li>
+						<li><a href="javascript:void(0)" data="ABBCA">ABBCA</a></li>
+						<li><a href="javascript:void(0)" data="BABBC">BABBC</a></li>
+						<li><a href="javascript:void(0)" data="ACBBA">ACBBA</a></li>
+						<li><a href="javascript:void(0)" data="AABCB">AABCB</a></li>
+						<li><a href="javascript:void(0)" data="ACBAB">ACBAB</a></li>
+						<li><a href="javascript:void(0)" data="BABCB">BABCB</a></li>
+						<li><a href="javascript:void(0)" data="CABAB">CABAB</a></li>
+						<li><a href="javascript:void(0)" data="BBABC">BBABC</a></li>
+						<li><a href="javascript:void(0)" data="ABABC">ABABC</a></li>
+						<li><a href="javascript:void(0)" data="ABACB">ABACB</a></li>
+						<li><a href="javascript:void(0)" data="ABCBA">ABCBA</a></li>
+						<li><a href="javascript:void(0)" data="ABCAB">ABCAB</a></li>
+						<li><a href="javascript:void(0)" data="ABBCD">ABBCD</a></li>
+						<li><a href="javascript:void(0)" data="BABCD">BABCD</a></li>
+						<li><a href="javascript:void(0)" data="ABCBD">ABCBD</a></li>
+						<li><a href="javascript:void(0)" data="BACBD">BACBD</a></li>
+						<li><a href="javascript:void(0)" data="ACBBD">ACBBD</a></li>
+						<li><a href="javascript:void(0)" data="ABCDB">ABCDB</a></li>
+						<li><a href="javascript:void(0)" data="BACDB">BACDB</a></li>
+						<li><a href="javascript:void(0)" data="ACBDB">ACBDB</a></li>
+						<li><a href="javascript:void(0)" data="ACDBB">ACDBB</a></li>
+						<li><a href="javascript:void(0)" data="BBACD">BBACD</a></li>
+						<li><a href="javascript:void(0)" data="ABCDE">ABCDE</a></li>
+					</ul>
+				</div>
+				<div class="item" id="score-select">
+					Score
+					<ul>
+						<li><a href="javascript:void(0)" min="90" max="100">90-100</a></li>
+						<li><a href="javascript:void(0)" min="80" max="90">80-90</a></li>
+						<li><a href="javascript:void(0)" min="70" max="80">70-80</a></li>
+						<li><a href="javascript:void(0)" min="60" max="70">60-70</a></li>
+						<li><a href="javascript:void(0)" min="50" max="60">50-60</a></li>
+						<li><a href="javascript:void(0)" min="40" max="50">40-50</a></li>
+						<li><a href="javascript:void(0)" min="30" max="40">30-40</a></li>
+						<li><a href="javascript:void(0)" min="20" max="30">20-30</a></li>
+						<li><a href="javascript:void(0)" min="10" max="20">10-20</a></li>
+						<li><a href="javascript:void(0)" min="0" max="10">0-10</a></li>
+					</ul>
+				</div>
+				<div class="item" id="size-sort">
+					Size
+					<ul>
+						<li><a href="javascript:void(0)" data="bigger">big to small</a></li>
+						<li><a href="javascript:void(0)" data="small">small to big</a></li>
+					</ul>
+				</div>
+				<div class="item" id="price-sort">
+					Price
+					<ul>
+						<li><a href="javascript:void(0)" data="bigger">high to low</a></li>
+						<li><a href="javascript:void(0)" data="small">low to high</a></li>
+					</ul>
+				</div>
+				<div class="fbox mobile-hide">
+					<input type="text" class="sinput" placeholder="10000" id="sinput-low" />
+					<i> — </i>
+					<input type="text" class="sinput" placeholder="99999" id="sinput-high" />
+					<button type="button" class="go">GO</button>
+				</div>
+			</div>
+		</div>
+		<div id="ii-item-list" class="layout flexlist">
+		</div>
+		<div id="ii-loading" class="loading">
+			<div class="loader"></div>
+		</div>
+		<div id="ii-page-root" class="tui-pagination">
+		</div>
+		<div class="layout">
+			<h2>Internet Identity Wiki</h2>
+			<div class="w100 flexlist">
+				<dl>
+					<dt>How to transfer your II account</dt>
+					<dd>II is Internet identity, with strong anonymity and very high security. By transferring the II account in the correct way, it can have no impact on security. II ID is only visible to yourself. Please do not over invest.<a target="_blank" href="https://support.dstar.app/#/IITransfer">Read More+</a></dd>
+				</dl>
+				<dl>
+					<dt>II ID Score</dt>
+					<dd>This page will load very slowly because it loads score of 10000-99999.If you have considered it and the computer configuration is good, please click the link below.<a target="_blank" href="https://support.dstar.app/#/about">Read More+</a></dd>
+				</dl>
+				<dl>
+					<dt>II ID Types</dt>
+					<dd>This form is all possible combination types of 10000-99999.Increasing sequence not considered.<a target="_blank" href="https://support.dstar.app/#/types">Read More+</a></dd>
+				</dl>
+				<dl>
+					<dt>II ID Visual effect</dt>
+					<dd>Each type's visual effect. This score only represents the developer's evaluation.<a target="_blank" href="https://support.dstar.app/#/Visual">Read More+</a></dd>
+				</dl>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="layout flex">
+				<div class="foot-logo"></div>
+				<div class="copyright">Dstar &copy; 2021<br>Build on Internet Computer</div>
+			</div>
+		</div>
+		<div class="tbox" id="del">
+			<div class="text">
+				Please ensure that the transfer of II has been completed, otherwise you will lose II. If you have not completed the transfer, please review the following tutorial.
+				<div class="flex">
+					<a target="_blank" href="https://support.dstar.app/#/IITransfer">How to transfer II?</a> <a target="_blank" href="https://support.dstar.app/#/zh-cn/IITransfer">如何过户您的II？</a>
+				</div>
+			</div>
+			<div class="tbtn">
+				<button type="button" class="delete">Delete</button>
+				<button type="button" class="cancel">Cancel</button>
+			</div>
+		</div>
+		<div class="tbox" id="buyon">
+			<div class="flex">
+				<label class="radio radio-off"><input name="condition" type="hidden"></label>
+				<div class="text">
+					I am aware that II is only viewable by myself.
+				</div>
+			</div>
+			<div class="flex">
+				<label class="radio radio-off"><input name="condition" type="hidden"></label>
+				<div class="text">
+					I did not purchase II for financial return, simply because I like the number.
+				</div>
+			</div>
+			<div class="flex">
+				<label class="radio radio-off"><input name="condition" type="hidden"></label>
+				<div class="text">
+					I already know how to transfer it and am responsible for the loss due to any wrong operations.
+				</div>
+			</div>
+			<div class="text" style="margin-top: -20px;">
+				<div class="flex">
+					<a target="_blank" href="https://support.dstar.app/#/IITransfer">How to transfer II?</a> <a target="_blank" href="https://support.dstar.app/#/zh-cn/IITransfer">如何过户您的II？</a>
+				</div>
+			</div>
+			<div class="tbtn">
+				<button type="button" class="continue disabled" id="continue">Continue</button>
+				<button type="button" class="cancel">Cancel</button>
+			</div>
+		</div>
+		<div class="tbox" id="copyok">
+			<div class="text">
+				copy successed！
+				<div class="flex">
+					<a target="_blank" href="https://support.dstar.app/#/IITransfer">How to transfer II?</a> <a target="_blank" href="https://support.dstar.app/#/zh-cn/IITransfer">如何过户您的II？</a>
+				</div>
+			</div>
+			<div class="tbtn">
+				<button type="button" class="sure">sure</button>
+			</div>
+		</div>
+		<div id="countdown">
+			<h3>Launch at</h3>
+			<p>31 October 2021, 10:00 pm (GMT+8)<br>Australian Western Standard Time!</p>
+		</div>
+		<div class="tbox" id="paying">
+			<div class="loader"></div>
+			<span>locking...</span>
+			<p>When the plug transaction is opened, please complete the payment within 2 minutes. Orders that time out will not succeed and will not be refunded.<br>当plug交易打开后，请在2分钟内完成付款。超时的订单将无法成功，并且无法退款。</p>
+		</div>
+		<div class="tbox" id="complete">
+			<i><span id="close"></span></i>
+			<span>Transaction completed!</span>
+			<p>After verification, you can find II in the user centre. Normally it takes 1-2 minutes to complete the transaction.</p>
+		</div>
+		<div class="layer"></div>
+		<div class="tlayer"></div>
+		<div class="preload">
+			<label class="radio-off"></label>
+			<label class="radio-on"></label>
+			<label class="radio-off"></label>
+			<label class="commat"></label>
+			<label class="icomplete"></label>
+			<label class="iclose"></label>
+	  </div><!-- /.preload -->
+		<script id="ii-item-tmpl" type="text/x-jquery-tmpl">
+			<div class="list" id="ii-item-${id}">
+				<div class="score score-${star_en}"></div>
+				<div class="number">
+					<span>NO.</span>
+					${id}
+				</div>
+				<div class="price icon-score">
+					score <span><i> =  </i>${score}</span>
+				</div>
+				<div class="price icon-price">
+					${icp_price} ICP <span><i>≈ </i>$${usd_price.toFixed(2)}</span>
+				</div>
+				{{if locked}}
+				<div class="locked"></div>
+				<div class="lockbtn"><span class="showtimes">${lockSecond}</span>S Unlock</div>
+				{{else}}
+        <div class="buy" data="${id}">
+					BUY
+				</div>
+				{{/if}}
+			</div>
+		</script>
+		<script id="ii-record-tmpl" type="text/x-jquery-tmpl">
+			<tr class="noborder">
+				<td>${id}</td>
+				<!-- <td class="tdcolor"><div class="txt ellipsis"><a target="_blank" href="https://ic.rocks/transaction/${hash}">${hash}</a></div></td> -->
+				<td class="tdcolor">
+					<div class="txt ellipsis">
+					<a target="_blank" href="https://ic.rocks/account/${from}">${from}</a>
+					</div>
+				</td>
+				<td class="tdcolor">
+					<div class="txt ellipsis">
+					<a target="_blank" href="https://ic.rocks/account/${to}">${to}</a>
+					</div>
+				</td>
+				<td>${time}</td>
+				<td><span>${icp_price}</span>ICP</td>
+				<!-- <td>0.00001 ICP</td> -->
+				<td><span class="seed">show</span></td>
+			</tr>
+			<tr class="phrase">
+				<td colspan="8" class="nopadding">
+					<div class="zjc flex">
+						<div>
+							${secret}
+						</div>
+						<div>
+							<span class="btn copy" data-clipboard-text="${secret}">copy</span>
+							<!-- <span class="btn delete">delete</span> -->
+						</div>
+					</div>
+				</td>
+			</tr>
+		</script>
+		<script src="/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery.tmpl.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

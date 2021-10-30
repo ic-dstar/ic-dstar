@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="131px" height="20px" viewBox="0 0 131 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tags</title>
+    <g id="pc" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="PC" transform="translate(-726.000000, -1511.000000)" fill-rule="nonzero">
+            <g id="list" transform="translate(385.000000, 646.000000)">
+                <g id="编组-6备份-3" transform="translate(0.000000, 848.000000)">
+                    <g id="item备份" transform="translate(310.000000, 0.000000)">
+                        <g id="tags" transform="translate(31.000000, 18.000000)">
+                            <g id="tag">
+                                <polygon id="路径" fill="#FF8000" points="0 6.92307422 11 18 22 6.92307422 18.5625022 0 3.43749782 0"></polygon>
+                                <polygon id="路径" fill="#FFA64D" points="7.85124271 4.91538867 11 0 3.43749782 0 0 6.92307422 11 18"></polygon>
+                            </g>
+                            <g id="tag" transform="translate(27.000000, 0.000000)">
+                                <polygon id="路径" fill="#FF8000" points="0 6.92307422 11 18 22 6.92307422 18.5625022 0 3.43749782 0"></polygon>
+                                <polygon id="路径" fill="#FFA64D" points="7.85124271 4.91538867 11 0 3.43749782 0 0 6.92307422 11 18"></polygon>
+                            </g>
+                            <g id="tag" transform="translate(54.000000, 0.000000)" stroke="#FF8000">
+                                <polygon id="路径" points="0 6.92307422 11 18 22 6.92307422 18.5625022 0 3.43749782 0"></polygon>
+                            </g>
+                            <g id="tag备份" transform="translate(81.000000, 0.000000)" stroke="#FF8000">
+                                <polygon id="路径" points="0 6.92307422 11 18 22 6.92307422 18.5625022 0 3.43749782 0"></polygon>
+                            </g>
+                            <g id="tag备份-2" transform="translate(108.000000, 0.000000)" stroke="#FF8000">
+                                <polygon id="路径" points="0 6.92307422 11 18 22 6.92307422 18.5625022 0 3.43749782 0"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
