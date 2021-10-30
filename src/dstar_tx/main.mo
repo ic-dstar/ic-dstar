@@ -49,7 +49,6 @@ shared ({caller = owner}) actor class DstarTxActor() {
     if (gindex_ >= 2000) {
       gindex_ := 1000;
     };
-    Debug.print(debug_show(Int.toText(now) # Nat.toText(gindex_)));
     return Text.hash(Int.toText(now) # Nat.toText(gindex_));
   };
 

@@ -216,7 +216,6 @@ shared ({caller = owner}) actor class Dstar() {
         var payto = caller;
         switch(payee) {
             case(?pay){
-                Debug.print(debug_show(pay));
                 payto := pay;
             };
             case(_){}
