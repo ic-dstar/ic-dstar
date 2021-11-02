@@ -208,7 +208,7 @@ shared ({caller = owner}) actor class DstarTxActor() {
   };
 
   public shared query({caller}) func getTxByUser(who: Principal): async [TxRecord] {
-    assert(caller == dstar_canister_id_);
+    assert(caller == dstar_canister_id_ or caller == owner_);
     var txall : [TxRecord] = [];
     switch (user_txs_map.get(who)) {
       case (?txs) {
@@ -285,6 +285,22 @@ shared ({caller = owner}) actor class DstarTxActor() {
     return null;
   };
 
+  public shared({caller}) func searchIndex(idx: Nat32): async ?ConfirmInfo {
+    assert(caller == owner_);
+    switch(alltxs_map.get(idx)) {
+      case(?tx) {
+        switch(pubkey_map.get(tx.pay.from)) {
+          case (?key) {
+            return ?{ id= tx.pay.id; code = idx; publickey = key; };
+          };
+          case (_){}
+        }
+      };
+      case(_) {}
+    };
+    return null;
+  };
+
   public shared query({caller}) func allTx(all: Bool) : async [TxRecord] {
     assert(caller == owner_);
     // Debug.print(debug_show(caller));
@@ -302,6 +318,19 @@ shared ({caller = owner}) actor class DstarTxActor() {
       }
     };
     return txs;
+  };
+
+  public shared({caller}) func removePubkey(user: Principal) : async Bool {
+    assert(caller == dstar_canister_id_ or caller == owner_);
+    switch(pubkey_map.get(user)) {
+      case(?key) {
+        pubkey_map.delete(user);
+        return true;
+      };
+      case(_){
+        return false;
+      }
+    }
   };
 
   public shared({caller}) func who() : async Principal {
