@@ -9,7 +9,7 @@ import List "mo:base/List";
 import Int "mo:base/Int";
 import Nat "mo:base/Nat";
 import Nat32 "mo:base/Nat32";
-import Nat64 "mo:base/Bool";
+import Nat64 "mo:base/Nat64";
 import Options "mo:base/Option";
 import Principal "mo:base/Principal";
 import Text "mo:base/Text";
@@ -42,7 +42,6 @@ shared ({caller = owner}) actor class DstarTxActor() {
   // main public key
   private var pubkey_map = HashMap.HashMap<Principal, Text>(1, Principal.equal, Principal.hash);
   private var wait_queue : Queue.Queue<Nat32> = Queue.nil<Nat32>();
-
 
   private func genTxID(now: Time.Time): Nat32 {
     gindex_ := gindex_ + 1;
@@ -302,7 +301,7 @@ shared ({caller = owner}) actor class DstarTxActor() {
   };
 
   public shared query({caller}) func allTx(all: Bool) : async [TxRecord] {
-    assert(caller == owner_);
+    assert(caller == dstar_canister_id_ or caller == owner_);
     // Debug.print(debug_show(caller));
     // Debug.print(debug_show(owner_) # "owner");
 

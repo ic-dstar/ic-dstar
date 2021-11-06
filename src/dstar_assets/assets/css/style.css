@@ -490,6 +490,14 @@ h2 {
   background-color: #555;
   opacity: 1;
 }
+.starscore {
+  position: absolute;
+  top: 24px;
+  right: 8px;
+  background: url(../img/star.svg) no-repeat left center;
+  background-size: 15px 15px;
+  padding-left: 20px;
+}
 dl {
   width: 48%;
   border-radius: 5px;
@@ -905,6 +913,19 @@ dl dd a:hover {
   -webkit-animation: dot 2s infinite step-start both;
   animation: dot 2s infinite step-start both;
 }
+@keyframes dot {
+  25% {
+    border-color: transparent;
+    background-color: transparent;
+  }
+  50% {
+    border-right-color: transparent;
+    background-color: transparent;
+  }
+  75% {
+    border-right-color: transparent;
+  }
+}
 #tip {
   width: 100%;
   background-color: #fff6f6;
@@ -926,16 +947,28 @@ dl dd a:hover {
 #tip i.closetip:hover {
   cursor: pointer;
 }
-@keyframes dot {
-  25% {
-    border-color: transparent;
-    background-color: transparent;
+.airdrop {
+  background: #871317
+    linear-gradient(to right, #ffe600, #fb8e7b, #11dbdf, #85ff86);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-right: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  -webkit-background-size: 160% 100%;
+  -webkit-animation: airdrop-animation 2s infinite linear;
+}
+.airdrop:hover {
+  cursor: pointer;
+}
+@-webkit-keyframes airdrop-animation {
+  0% {
+    background-position: 0 0;
   }
   50% {
-    border-right-color: transparent;
-    background-color: transparent;
+    background-position: -50% 0;
   }
-  75% {
-    border-right-color: transparent;
+  100% {
+    background-position: -100% 0;
   }
 }

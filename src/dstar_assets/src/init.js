@@ -4,6 +4,8 @@ export const dstarjs = {
   txlist: [],
   iilist: [],
   user: '',
+  userstar: 0.0,
+  airdrop: false,
   connect_handler: null,
   search_handler: null,
   buy_handler: null,
@@ -47,6 +49,15 @@ export const dstarjs = {
     }
   },
 
+  getII(id) {
+    for (var i = 0; i < this.iilist.length; i++) {
+      if (this.iilist[i].id == id) {
+        return this.iilist[i];
+      }
+    }
+    return null;
+  },
+
   loading(clear) {
     if (clear) {
       $('#ii-item-list').html('');
@@ -78,6 +89,7 @@ export const dstarjs = {
     self.loading(true);
     let id = parseInt($('.searchfld .input').val());
     let myopt = {
+      airdrop: self.airdrop,
       id: id ? id : 0,
       page: self.page,
       size: self.pagesize,
@@ -87,7 +99,7 @@ export const dstarjs = {
       highScore: 0,
       itype: [],
       ssort: [],
-      psort: []
+      psort: [],
     }
     if (!myopt.id) {
       let highId = parseInt($('#sinput-high').val());
@@ -132,6 +144,11 @@ export const dstarjs = {
     $('.cancel').click();
   },
 
+  renderStar(star) {
+    this.userstar = star;
+    $('#ii-user-star').html('' + this.userstar);
+  },
+
   renderTx(lists) {
     var self = this;
     self.loadingTx = false;
@@ -139,12 +156,8 @@ export const dstarjs = {
     if (lists.length <= 0) {
       return;
     }
-    let userstar = 0.0;
-    lists.forEach(tx => {
-      userstar += tx.icp_price * 10;
-    });
+
     $('#ii-tx-count').html('' + lists.length);
-    $('#ii-user-star').html('' + userstar);
     self.txlist = lists;
     $('#ii-order-list').html('');
     $("#ii-record-tmpl").tmpl(lists).appendTo("#ii-order-list");
@@ -193,6 +206,16 @@ export const dstarjs = {
         }
         return;
       }
+      let id = parseInt($(this).attr('data'));
+      let ii = self.getII(id);
+      if (!ii) {
+        return;
+      }
+      if (ii.limitStar > 0 && self.userstar < ii.limitStar) {
+        alert('You are not allowed to buy it!');
+        return;
+      }
+
       self.popup(true);
       $('#buyon').attr('data', $(this).attr('data'))
       $('#buyon').fadeIn(150);
@@ -251,7 +274,14 @@ export const dstarjs = {
       }
     });
 
+    $('#airdrop-select').click(function () {
+      self.airdrop = true;
+      self.page = 1;
+      self.refreshII({})
+    });
+
     $('#all-select').click(function () {
+      self.airdrop = false;
       self.page = 1;
       self.refreshII({})
     });
@@ -395,7 +425,7 @@ export const dstarjs = {
       self.popup(false);
       $('#copyok').hide();
     });
-    $('#close').click(function () {
+    $('#close, #complete').click(function () {
       $('#complete').fadeOut(150);
       self.popup(false);
     });

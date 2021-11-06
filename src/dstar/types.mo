@@ -3,13 +3,14 @@
 * Copyright  : 2021 Dstar Team
 */
 
-import Nat64 "mo:base/Nat64";
-import Time "mo:base/Time";
+import Hash "mo:base/Hash";
 import Int "mo:base/Int";
+import Ledger "./ledger";
+import Nat "mo:base/Nat";
+import Nat64 "mo:base/Nat64";
 import Order "mo:base/Order";
 import Prim "mo:prim";
-import Ledger "./ledger";
-import Hash "mo:base/Hash";
+import Time "mo:base/Time";
 
 module {
     public type IIType = {
@@ -104,7 +105,8 @@ module {
         price: Nat64;
         timestamp: Time.Time;
         locked: Bool;
-        lockTime: Time.Time;
+        lockSecond: Int;
+        limitStar: Nat;
         owner: Principal;
     };
 
@@ -142,42 +144,93 @@ module {
         highScore: Nat;
         ssort: ?IISortType;
         psort: ?IISortType;
+        airdrop: Bool;
     };
 
-    public func compareTime(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
-        if (a.timestamp > b.timestamp) {
+    public type IIDropItem = {
+        id: Nat;
+        dropSec: Nat;
+        limitStar: Nat;
+        timestamp: Time.Time;
+        droped: Bool;
+    };
+
+    public type IIPriceOrder = {
+        id: Nat;
+        price: Nat64;
+    };
+
+    public type IITimeOrder = {
+        id: Nat;
+        timestamp: Time.Time;
+    };
+
+    // smaller -> bigger
+    public func compareTime(a : IITimeOrder, b : IITimeOrder) : Order.Order {
+        if (a.timestamp < b.timestamp) {
             return #less;
+        } else if (a.timestamp == b.timestamp) {
+            return Nat.compare(a.id, b.id);
         };
         return #greater;
     };
 
-    public func compareSizeBigger(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
-        if (a.id > b.id) {
-            return #less;
-        };
-        return #greater;
-    };
-
-    public func compareSizeSmall(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
-        if (a.id < b.id) {
-            return #less;
-        };
-        return #greater;
-    };
-
-    public func comparePriceBigger(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
-        if (a.price > b.price) {
-            return #less;
-        };
-        return #greater;
-    };
-
-    public func comparePriceSmall(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
+    // smaller -> bigger
+    public func comparePrice(a : IIPriceOrder, b : IIPriceOrder) : Order.Order {
         if (a.price < b.price) {
             return #less;
+        } else if (a.price == b.price) {
+            return Nat.compare(a.id, b.id);
         };
         return #greater;
     };
+
+    public func withPriceId(a: IIPriceOrder): Nat {
+        return a.id
+    };
+
+    public func withTimeId(a: IITimeOrder): Nat {
+        return a.id
+    };
+
+    public func withNatId(a: Nat): Nat {
+        return a
+    };
+
+    // public func compareTime(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
+    //     if (a.timestamp > b.timestamp) {
+    //         return #less;
+    //     };
+    //     return #greater;
+    // };
+
+    // public func compareSizeBigger(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
+    //     if (a.id > b.id) {
+    //         return #less;
+    //     };
+    //     return #greater;
+    // };
+
+    // public func compareSizeSmall(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
+    //     if (a.id < b.id) {
+    //         return #less;
+    //     };
+    //     return #greater;
+    // };
+
+    // public func comparePriceBigger(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
+    //     if (a.price > b.price) {
+    //         return #less;
+    //     };
+    //     return #greater;
+    // };
+
+    // public func comparePriceSmall(a : IIAccountInfo, b : IIAccountInfo) : Order.Order {
+    //     if (a.price < b.price) {
+    //         return #less;
+    //     };
+    //     return #greater;
+    // };
 
     public func copy<A>(xs: [A], start: Nat, length: Nat) : [A] {
         if (start > xs.size()) return [];

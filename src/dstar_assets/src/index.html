@@ -32,7 +32,7 @@
 				<div class="title flex">
 					<div>Transations <i id="ii-tx-count">0</i> <a id="refresh" href="javascript:void(0)">click to refresh</a></div>
 					<div class="star">
-						<img src="/img/star.svg" ><span id="ii-user-star"></span>
+						<img src="/img/star.svg" ><span id="ii-user-star">0</span>
 					</div>
 					<!-- <div class="logout">logout</div> -->
 				</div>
@@ -78,6 +78,7 @@
 		<div class="layout flex mobile">
 			<h2>Internet Identity</h2>
 			<div class="fliter flex">
+				<div class="airdrop" id="airdrop-select">Airdrop</div>
 				<div class="item no-bg" id="all-select">
 					All
 				</div>
@@ -305,6 +306,9 @@
         <div class="buy" data="${id}">
 					BUY
 				</div>
+				{{/if}}
+				{{if limitStar > 0}}
+				<div class="starscore">star>${limitStar}</div>
 				{{/if}}
 			</div>
 		</script>

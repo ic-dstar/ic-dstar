@@ -51,18 +51,11 @@ async function refresh_dstar(opt) {
   let resp = await actor.searchList(opt);
   let lists = resp.data;
   for (let i = 0; i < lists.length; i++) {
-    lists[i].icp_price = Number(lists[i].price * 100n / BigInt(100_000_000)) / 100;
+    lists[i].icp_price = Number(lists[i].price * 1000n / BigInt(100_000_000)) / 1000;
     lists[i].usd_price = lists[i].icp_price * icpusd;
     lists[i].star_en = star_str(lists[i].star);
-
-    if (lists[i].locked) {
-      let ms = Number(BigInt(lists[i].lockTime) / BigInt(1e6));
-      let now = new Date().getTime();
-      let second = 150 - Math.round((now - ms) / 1e3);
-      lists[i].lockSecond = second < 0 ? 0 : second;
-    } else {
-      lists[i].lockSecond = 0;
-    }
+    lists[i].lockSecond = Number(lists[i].lockSecond);
+    lists[i].limitStar = Number(lists[i].limitStar);
   }
   dstarjs.renderII(resp.pageTotal, lists);
 }
@@ -75,7 +68,7 @@ $(document).ready(async function () {
     countDownTime.start();
   }
 
-  dstarjs.init(do_connect, refresh_dstar, do_buy, load_tx_recored);
+  dstarjs.init(do_connect, refresh_dstar, do_buy, load_user_info);
 
   if (window.ic && window.ic.plug) {
     // const connected = await window.ic.plug.isConnected();
@@ -124,7 +117,7 @@ async function do_connect() {
     {
       dstarjs.refreshII();
       dstar_key_init();
-      load_tx_recored();
+      load_user_info();
     }
 
     return true;
@@ -146,7 +139,7 @@ async function do_buy(id) {
     do_transfer(resp[0]);
   } else {
     dstarjs.paying(0);
-    alert('Locked by other user!');
+    alert('You are not allowed to buy it or It Locked by other user!');
   }
 };
 
@@ -176,7 +169,7 @@ async function do_transfer(payinfo) {
       (async () => {
         let actor = await getDstarActor();
         await actor.purchase(payinfo.code, payinfo.id, BigInt(result.height), payinfo.memo);
-        load_tx_recored();
+        load_user_info();
         dstarjs.refreshII();
       })();
     }
@@ -189,6 +182,20 @@ async function do_transfer(payinfo) {
     })();
     dstarjs.paying(0);
   }
+}
+
+async function load_user_info() {
+  load_user_star();
+  load_tx_recored();
+}
+
+async function load_user_star() {
+  let actor = await getDstarActor();
+  let star_num = await actor.getStar();
+  // two decimal
+  let star_count = Number(star_num * 100n / 100_000_000n) / 100;
+  console.log('star => ', star_count);
+  dstarjs.renderStar(star_count);
 }
 
 async function load_tx_recored() {
