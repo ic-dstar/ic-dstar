@@ -67,7 +67,7 @@ export const dstarjs = {
   },
 
   lockShowTimeII() {
-    // var self = this;
+    var self = this;
     for (var i = 0; i < this.iilist.length; i++) {
       if (this.iilist[i].locked) {
         this.iilist[i].lockSecond -= 1;
@@ -77,6 +77,14 @@ export const dstarjs = {
         let id = Number(this.iilist[i].id);
         let second = this.iilist[i].lockSecond + '';
         $(`#ii-item-${id} .showtimes`).html(second);
+        if (this.iilist[i].lockSecond <= 0 && $(`#ii-item-${id} .locked`).length > 0) {
+          setTimeout(() => {
+            $(`#ii-item-${id}`).append(`<div class="buy" data="${id}"> BUY </div>`);
+            $(`#ii-item-${id} .locked`).remove();
+            $(`#ii-item-${id} .lockbtn`).remove();
+            self._re_buy();
+          }, 150);
+        }
       }
     }
   },
