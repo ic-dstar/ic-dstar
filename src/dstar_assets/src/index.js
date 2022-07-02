@@ -1,6 +1,6 @@
 import { idlFactory, canisterId, dstar } from "../../declarations/dstar";
 import { icp2usd, get_account_id, star_str, formattime, uint2hex } from "./util.js";
-import { NNS_CANISTER_ID, LEDGER_CANISTER_ID } from "./util.js";
+import { NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID } from "./util.js";
 import { generate_dstar_key, import_dstar_key } from "./util.js";
 import { rsa_encrypt, rsa_decrypt, cbor_sha256 } from "./util.js";
 import { dstarjs, countDownTime } from "./init.js";
@@ -11,7 +11,7 @@ import 'tui-pagination/dist/tui-pagination.css';
 // import { Principal } from "@dfinity/principal";
 // import { HttpAgent } from "@dfinity/agent";
 
-let whitelist = [canisterId, NNS_CANISTER_ID, LEDGER_CANISTER_ID];
+let whitelist = [canisterId, NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID];
 let host = (process.env.NODE_ENV && process.env.NODE_ENV !== "production")
   ? "http://localhost:8080"
   : "https://identity.ic0.app";

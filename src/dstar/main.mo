@@ -574,8 +574,10 @@ shared ({caller = owner}) actor class Dstar() {
                             locks_.delete(id);
                             drops_.delete(id);
 
-                            let addstar = account.price * icp_2_star;
-                            addUserStar(caller, addstar);
+                            // stop adduserstar
+                            // 2021/11/09 22:00:00 GMT+8
+                            // let addstar = account.price * icp_2_star;
+                            // addUserStar(caller, addstar);
                         };
                         return res;
                    };
@@ -675,26 +677,5 @@ shared ({caller = owner}) actor class Dstar() {
     //     };
     //     return ret;
     // };
-
-    // fix user star
-    public shared ({caller}) func fixUserStar() : async Bool {
-        assert(caller == owner_);
-        let tx = await getTxActor();
-        let alltxs = await tx.allTx(false);
-
-        for ( (k, v) in userstars_.entries()) {
-            userstars_.put(k, 0);
-        };
-
-        for ( v in alltxs.vals()) {
-            let user = v.pay.from;
-            let price = v.pay.price;
-
-            let addstar = price * icp_2_star;
-            addUserStar(user, addstar);
-        };
-
-        return true;
-    };
 
 };

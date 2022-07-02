@@ -5,7 +5,7 @@ import { getCrc32 } from "@dfinity/principal/lib/cjs/utils/getCrc";
 import { sha224 } from "@dfinity/principal/lib/cjs/utils/sha224.js";
 import { Actor, HttpAgent, Cbor } from "@dfinity/agent";
 import { blobToUint8Array } from "@dfinity/candid";
-import nnsIDL from './candid/nns.did';
+import cycleIDL from './candid/cycle.did';
 import ledgerIDL from './candid/ledger.did';
 import axios from 'axios';
 import cryptojs from "crypto-js";
@@ -15,7 +15,7 @@ export const GOVERNANCE_CANISTER_ID = "rrkah-fqaaa-aaaaa-aaaaq-cai";
 export const NNS_CANISTER_ID = "qoctq-giaaa-aaaaa-aaaea-cai";
 export const CYCLES_MINTING_CANISTER_ID = "rkp4c-7iaaa-aaaaa-aaaca-cai";
 
-let nnsActor = null;
+let cycleActor = null;
 let ledgerActor = null;
 
 export const ICActor = async (idl, canisterId, options) => {
@@ -39,7 +39,7 @@ export const ICActorPlug = async (idl, canisterId) => {
   if (!window.ic || !window.ic.plug || !window.ic.plug.agent) {
     return null;
   }
-  let whitelist = [NNS_CANISTER_ID, LEDGER_CANISTER_ID];
+  let whitelist = [NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID];
   let host = "https://boundary.ic0.app/";
 
   let agent = await window.ic.plug.createAgent({ whitelist, host });
@@ -57,12 +57,12 @@ export const ICActorPlug = async (idl, canisterId) => {
   });
 }
 
-export const getNnsActor = () => {
-  if (nnsActor) {
-    return nnsActor;
+export const getCycleActor = () => {
+  if (cycleActor) {
+    return cycleActor;
   }
-  nnsActor = ICActor(nnsIDL, NNS_CANISTER_ID);
-  return nnsActor;
+  cycleActor = ICActor(cycleIDL, CYCLES_MINTING_CANISTER_ID);
+  return cycleActor;
 }
 
 export const getLedgerActor = async () => {
@@ -79,9 +79,9 @@ export const getLedgerActor = async () => {
 
 export const icp2usd = async () => {
   console.log(Principal.anonymous().toText());
-  let nns = await getNnsActor();
-  let fee = await nns.get_icp_to_cycles_conversion_rate();
-  let b = Number(fee / BigInt(10 ** 10)) / (10 ** 2)
+  let nns = await getCycleActor();
+  let fee = await nns.get_icp_xdr_conversion_rate();
+  let b = Number(fee.data.xdr_permyriad_per_icp / BigInt(10 ** 2)) / (10 ** 2)
   console.log("ipc => xdr", b);
   let xusd = await xdr2usd();
   console.log("xdr => usd", xusd);
