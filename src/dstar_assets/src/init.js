@@ -1,9 +1,9 @@
-import Pagination from 'tui-pagination';
+import Pagination from "tui-pagination";
 
 export const dstarjs = {
   txlist: [],
   iilist: [],
-  user: '',
+  user: "",
   userstar: 0.0,
   airdrop: false,
   connect_handler: null,
@@ -40,12 +40,12 @@ export const dstarjs = {
   setuser(user) {
     this.user = user;
     if (!this.isauth()) {
-      $('#order').hide();
+      $("#order").hide();
     } else {
       let str = this.user;
-      $('#order').html(str.substr(0, 11) + '...' + str.substr(-8) + '<i class="down"></i>');
-      $('#plugconnect').hide();
-      $('#order').show();
+      $("#order").html(str.substr(0, 11) + "..." + str.substr(-8) + '<i class="down"></i>');
+      $("#plugconnect").hide();
+      $("#order").show();
     }
   },
 
@@ -60,9 +60,9 @@ export const dstarjs = {
 
   loading(clear) {
     if (clear) {
-      $('#ii-item-list').html('');
+      $("#ii-item-list").html("");
     }
-    $('#ii-loading').show();
+    $("#ii-loading").show();
     this.loadingList = true;
   },
 
@@ -75,7 +75,7 @@ export const dstarjs = {
           this.iilist[i].lockSecond = 0;
         }
         let id = Number(this.iilist[i].id);
-        let second = this.iilist[i].lockSecond + '';
+        let second = this.iilist[i].lockSecond + "";
         $(`#ii-item-${id} .showtimes`).html(second);
         if (this.iilist[i].lockSecond <= 0 && $(`#ii-item-${id} .locked`).length > 0) {
           setTimeout(() => {
@@ -95,7 +95,7 @@ export const dstarjs = {
       return;
     }
     self.loading(true);
-    let id = parseInt($('.searchfld .input').val());
+    let id = parseInt($(".searchfld .input").val());
     let myopt = {
       airdrop: self.airdrop,
       id: id ? id : 0,
@@ -108,26 +108,26 @@ export const dstarjs = {
       itype: [],
       ssort: [],
       psort: [],
-    }
+    };
     if (!myopt.id) {
-      let highId = parseInt($('#sinput-high').val());
-      let lowId = parseInt($('#sinput-low').val());
+      let highId = parseInt($("#sinput-high").val());
+      let lowId = parseInt($("#sinput-low").val());
       myopt.highId = highId ? highId : 0;
       myopt.lowId = lowId ? lowId : 0;
     }
-    opt = { ...myopt, ...opt }
+    opt = { ...myopt, ...opt };
     if (self.search_handler) {
       // console.log(opt);
       self.default_opt = opt;
-      self.search_handler(opt)
+      self.search_handler(opt);
     }
   },
 
   renderII(total, lists) {
-    $('#ii-loading').hide();
+    $("#ii-loading").hide();
     $("#ii-item-tmpl").tmpl(lists).appendTo("#ii-item-list");
     let total_str = total.toLocaleString();
-    $('.searchfld input').attr('placeholder', `${total_str} results, Please Input II Number`);
+    $(".searchfld input").attr("placeholder", `${total_str} results, Please Input II Number`);
 
     this._re_buy();
 
@@ -149,125 +149,138 @@ export const dstarjs = {
     }
     $(`#ii-item-${id} .buy`).remove();
     $(`#ii-item-${id}`).append(`<div class="locked"></div><div class="lockbtn"><span class="showtimes">150</span>S Unlock</div>`);
-    $('.cancel').click();
+    $(".cancel").click();
   },
 
   renderStar(star) {
     this.userstar = star;
-    $('#ii-user-star').html('' + this.userstar);
+    $("#ii-user-star").html("" + this.userstar);
   },
 
   renderTx(lists) {
     var self = this;
     self.loadingTx = false;
-    $('.orderfld .loading').hide();
+    $(".orderfld .loading").hide();
     if (lists.length <= 0) {
       return;
     }
 
-    $('#ii-tx-count').html('' + lists.length);
+    $("#ii-tx-count").html("" + lists.length);
     self.txlist = lists;
-    $('#ii-order-list').html('');
+    $("#ii-order-list").html("");
     $("#ii-record-tmpl").tmpl(lists).appendTo("#ii-order-list");
     self._re_seed();
+  },
+
+  renderTxErr() {
+    var self = this;
+    self.loadingTx = false;
+    $(".orderfld .loading").hide();
+    if (lists.length <= 0) {
+      return;
+    }
+
+    $("#ii-order-list").html("<tr><td col='6'>load error, please click the refresh again! </div>");
   },
 
   paying(status) {
     var self = this;
     if (status == 1) {
-      $('#paying').fadeIn(150);
-      $('#paying span').html("please wait, locking......")
+      $("#paying").fadeIn(150);
+      $("#paying span").html("please wait, locking......");
       self.popup(true);
     } else if (status == 2) {
-      $('#paying').fadeIn(150);
-      $('#paying span').html("please wait, paying......")
+      $("#paying").fadeIn(150);
+      $("#paying span").html("please wait, paying......");
       self.popup(true);
     } else if (status == 3) {
-      $('#paying').hide();
-      $('#complete').fadeIn(150);
+      $("#paying").hide();
+      $("#complete").fadeIn(150);
       self.popup(true);
     } else {
-      $('#complete').hide();
-      $('#paying').hide();
+      $("#complete").hide();
+      $("#paying").hide();
       self.popup(false);
     }
   },
 
   popup(show) {
     if (show) {
-      $('.tlayer').show();
-      $('body').css({ "overflow-x": "hidden", "overflow-y": "hidden" });
+      $(".tlayer").show();
+      $("body").css({ "overflow-x": "hidden", "overflow-y": "hidden" });
     } else {
-      $('.tlayer').hide();
-      $('body').css({ "overflow-x": "auto", "overflow-y": "auto" });
+      $(".tlayer").hide();
+      $("body").css({ "overflow-x": "auto", "overflow-y": "auto" });
     }
   },
 
   _re_buy() {
     var self = this;
-    $('.buy').off('click').click(function () {
-      if (!self.isauth()) {
-        if (!window.ic || !window.ic.plug) {
-          window.open('https://plugwallet.ooo/', '_blank');
-        } else {
-          $("#plugconnect").click();
+    $(".buy")
+      .off("click")
+      .click(function () {
+        if (!self.isauth()) {
+          if (!window.ic || !window.ic.plug) {
+            window.open("https://plugwallet.ooo/", "_blank");
+          } else {
+            $("#plugconnect").click();
+          }
+          return;
         }
-        return;
-      }
-      let id = parseInt($(this).attr('data'));
-      let ii = self.getII(id);
-      if (!ii) {
-        return;
-      }
-      if (ii.limitStar > 0 && self.userstar < ii.limitStar) {
-        alert('You are not allowed to buy it!');
-        return;
-      }
+        let id = parseInt($(this).attr("data"));
+        let ii = self.getII(id);
+        if (!ii) {
+          return;
+        }
+        if (ii.limitStar > 0 && self.userstar < ii.limitStar) {
+          alert("You are not allowed to buy it!");
+          return;
+        }
 
-      self.popup(true);
-      $('#buyon').attr('data', $(this).attr('data'))
-      $('#buyon').fadeIn(150);
-    });
+        self.popup(true);
+        $("#buyon").attr("data", $(this).attr("data"));
+        $("#buyon").fadeIn(150);
+      });
   },
 
   _re_seed() {
     var self = this;
-    $('.seed').click(function () {
+    $(".seed").click(function () {
       var that = $(this);
-      var thenext = that.parent().parent().next('.phrase');
-      if (that.text() == 'show') {
-        that.text('hide');
+      var thenext = that.parent().parent().next(".phrase");
+      if (that.text() == "show") {
+        that.text("hide");
         thenext.show();
-        thenext.siblings('.phrase').hide();
-        that.parent().parent().siblings('.noborder').children().find('.seed').text('show');
+        thenext.siblings(".phrase").hide();
+        that.parent().parent().siblings(".noborder").children().find(".seed").text("show");
       } else {
-        that.text('show');
+        that.text("show");
         thenext.hide();
       }
     });
-    if (typeof Clipboard != 'function') {
+    if (typeof Clipboard != "function") {
       return;
     }
-    let clipboard = new Clipboard('.copy');
-    clipboard.on('success', function (e) {
-      console.log('copy success');
-      $('#copyok').show(220);
+    let clipboard = new Clipboard(".copy");
+    clipboard.on("success", function (e) {
+      console.log("copy success");
+      $("#copyok").show(220);
       // self.popup(true);
     });
   },
 
   _init_search() {
     var self = this;
-    self.pager = new Pagination($('#ii-page-root'), {
+    self.pager = new Pagination($("#ii-page-root"), {
       totalItems: 0,
       itemsPerPage: self.pagesize,
       visiblePages: 8,
-      centerAlign: true
+      centerAlign: true,
     });
-    self.pager.on('beforeMove', function (eventData) {
+    self.pager.on("beforeMove", function (eventData) {
       return true;
     });
-    self.pager.on('afterMove', function (eventData) {
+    self.pager.on("afterMove", function (eventData) {
       if (self.page == eventData.page) {
         return;
       }
@@ -275,187 +288,190 @@ export const dstarjs = {
       self.refreshII({ ...self.default_opt, ...{ page: self.page } });
     });
 
-    $('.searchfld .sbtn, .fliter .go').click(function () {
+    $(".searchfld .sbtn, .fliter .go").click(function () {
       if (self.search_handler) {
         self.page = 1;
-        self.refreshII()
+        self.refreshII();
       }
     });
 
-    $('#airdrop-select').click(function () {
+    $("#airdrop-select").click(function () {
       self.airdrop = true;
       self.page = 1;
-      self.refreshII({})
+      self.refreshII({});
     });
 
-    $('#all-select').click(function () {
+    $("#all-select").click(function () {
       self.airdrop = false;
       self.page = 1;
-      self.refreshII({})
+      self.refreshII({});
     });
 
-    $('#itype-select ul li a').click(function () {
-      console.log('itype select');
-      let itype = $(this).attr('data');
+    $("#itype-select ul li a").click(function () {
+      console.log("itype select");
+      let itype = $(this).attr("data");
       self.refreshII({
-        itype: [{ [itype]: null }]
-      })
+        itype: [{ [itype]: null }],
+      });
     });
 
-    $('#score-select ul li a').click(function () {
-      console.log('score select');
-      let min = $(this).attr('min');
-      let max = $(this).attr('max');
+    $("#score-select ul li a").click(function () {
+      console.log("score select");
+      let min = $(this).attr("min");
+      let max = $(this).attr("max");
       self.refreshII({
         lowScore: parseInt(min),
         highScore: parseInt(max),
-      })
+      });
     });
 
-    $('#price-sort ul li a').click(function () {
-      console.log('price sort');
-      let sort = $(this).attr('data');
+    $("#price-sort ul li a").click(function () {
+      console.log("price sort");
+      let sort = $(this).attr("data");
       self.refreshII({
-        psort: [{ [sort]: null }]
-      })
+        psort: [{ [sort]: null }],
+      });
     });
 
-    $('#size-sort ul li a').click(function () {
-      console.log('size sort');
-      let sort = $(this).attr('data');
+    $("#size-sort ul li a").click(function () {
+      console.log("size sort");
+      let sort = $(this).attr("data");
       self.refreshII({
         ssort: [{ [sort]: null }],
-      })
+      });
     });
   },
 
   _init_page() {
     var self = this;
-    $('.item').hover(function () {
-      $(this).addClass('up');
-      $(this).children('ul').slideDown(180);
-    }, function () {
-      $(this).removeClass('up');
-      $(this).children('ul').slideUp(180);
-    });
+    $(".item").hover(
+      function () {
+        $(this).addClass("up");
+        $(this).children("ul").slideDown(180);
+      },
+      function () {
+        $(this).removeClass("up");
+        $(this).children("ul").slideUp(180);
+      }
+    );
 
     var status = 1;
-    $('#order').click(function () {
+    $("#order").click(function () {
       if (status == 1) {
-        let px = '85px';
-        if ($('#tip').is(":visible")) {
-          px = '123px';
+        let px = "85px";
+        if ($("#tip").is(":visible")) {
+          px = "123px";
         }
-        $('.layer').show();
-        $('.orderfld').slideDown();
-        $('.orderfld, .layer').css('top', px);
-        $(this).children('i').removeClass('down');
-        $(this).children('i').addClass('up');
+        $(".layer").show();
+        $(".orderfld").slideDown();
+        $(".orderfld, .layer").css("top", px);
+        $(this).children("i").removeClass("down");
+        $(this).children("i").addClass("up");
         status = 0;
-        $('body').css({
+        $("body").css({
           "overflow-x": "hidden",
-          "overflow-y": "hidden"
+          "overflow-y": "hidden",
         });
       } else {
-        $('.orderfld').slideUp();
-        $('.layer').hide();
-        $(this).children('i').removeClass('up');
-        $(this).children('i').addClass('down');
+        $(".orderfld").slideUp();
+        $(".layer").hide();
+        $(this).children("i").removeClass("up");
+        $(this).children("i").addClass("down");
         status = 1;
-        $('body').css({
+        $("body").css({
           "overflow-x": "auto",
-          "overflow-y": "auto"
+          "overflow-y": "auto",
         });
       }
     });
-    $('.layer').click(function () {
-      $('.orderfld').slideUp();
-      $('.layer').hide();
-      $('#order').children('i').removeClass('up');
-      $('#order').children('i').addClass('down');
-      $('body').css({ "overflow-x": "auto", "overflow-y": "auto" });
+    $(".layer").click(function () {
+      $(".orderfld").slideUp();
+      $(".layer").hide();
+      $("#order").children("i").removeClass("up");
+      $("#order").children("i").addClass("down");
+      $("body").css({ "overflow-x": "auto", "overflow-y": "auto" });
       status = 1;
     });
 
-    $('.delete').click(function () {
-      $('#del').show(220);
+    $(".delete").click(function () {
+      $("#del").show(220);
       self.popup(true);
     });
-    $('.cancel').click(function () {
+    $(".cancel").click(function () {
       self.popup(false);
-      $('#buyon').hide();
-      $('label').each(function () {
+      $("#buyon").hide();
+      $("label").each(function () {
         var that = $(this);
-        if (that.hasClass('radio-on')) {
-          that.removeClass('radio-on');
-          that.addClass('radio-off');
-          that.children(':input').val('0');
+        if (that.hasClass("radio-on")) {
+          that.removeClass("radio-on");
+          that.addClass("radio-off");
+          that.children(":input").val("0");
         }
       });
-      $('#continue').addClass('disabled');
+      $("#continue").addClass("disabled");
     });
-    $('label').click(function () {
+    $("label").click(function () {
       var that = $(this);
-      if (that.hasClass('radio-off')) {
-        that.removeClass('radio-off');
-        that.addClass('radio-on');
-        that.children(':input').val('1');
+      if (that.hasClass("radio-off")) {
+        that.removeClass("radio-off");
+        that.addClass("radio-on");
+        that.children(":input").val("1");
       } else {
-        that.addClass('radio-off');
-        that.removeClass('radio-on');
-        that.children(':input').val('0');
+        that.addClass("radio-off");
+        that.removeClass("radio-on");
+        that.children(":input").val("0");
       }
-      var conval = '';
-      $(':input[name=condition]').each(function () {
+      var conval = "";
+      $(":input[name=condition]").each(function () {
         conval += $(this).val();
       });
-      if (conval == '111') {
-        $('#continue').removeClass('disabled');
+      if (conval == "111") {
+        $("#continue").removeClass("disabled");
       } else {
-        $('#continue').addClass('disabled');
+        $("#continue").addClass("disabled");
       }
     });
-    $('#continue').click(function () {
+    $("#continue").click(function () {
       var that = $(this);
-      if (that.hasClass('disabled')) {
-        alert('Please check the box first.');
+      if (that.hasClass("disabled")) {
+        alert("Please check the box first.");
         return;
       }
-      $('#buyon').hide();
+      $("#buyon").hide();
       self.popup(false);
-      let buyid = parseInt($('#buyon').attr('data'));
+      let buyid = parseInt($("#buyon").attr("data"));
       if (buyid && self.buy_handler) {
         self.paying(1);
         self.buy_handler(buyid);
       }
     });
-    $('.sure').click(function () {
+    $(".sure").click(function () {
       self.popup(false);
-      $('#copyok').hide();
+      $("#copyok").hide();
     });
-    $('#close, #complete').click(function () {
-      $('#complete').fadeOut(150);
+    $("#close, #complete").click(function () {
+      $("#complete").fadeOut(150);
       self.popup(false);
     });
-    $('.closetip').click(function () {
-      $('#tip').hide(150);
+    $(".closetip").click(function () {
+      $("#tip").hide(150);
     });
 
-    $('#refresh').click(function () {
+    $("#refresh").click(function () {
       if (self.loadingTx) {
         return;
       }
       self.loadingTx = true;
-      $('#ii-order-list').html('');
-      $('.orderfld .loading').show();
+      $("#ii-order-list").html("");
+      $(".orderfld .loading").show();
       if (self.refresh_handler) {
         self.refresh_handler();
       }
     });
 
-    $('#plugconnect').click(async function () {
+    $("#plugconnect").click(async function () {
       if (!window.ic || !window.ic.plug) {
-        window.open('https://plugwallet.ooo/', '_blank');
+        window.open("https://plugwallet.ooo/", "_blank");
         return;
       }
       $(this).html('Connecting<span class="dot"></span>');
@@ -463,12 +479,12 @@ export const dstarjs = {
       if (self.connect_handler) {
         let res = await self.connect_handler();
         if (!res) {
-          $(this).html('connect to Plug');
+          $(this).html("connect to Plug");
         }
       }
       self.popup(false);
     });
-  }
+  },
 };
 
 export const countDownTime = {
@@ -477,8 +493,8 @@ export const countDownTime = {
   },
   start: function () {
     var a = this;
-    $('.tlayer').fadeIn(150);
-    $('#countdown').show();
+    $(".tlayer").fadeIn(150);
+    $("#countdown").show();
     setInterval(() => {
       a.timer();
     }, 1e3);
@@ -486,29 +502,37 @@ export const countDownTime = {
   timer: function () {
     var a = this;
     var b, c, d, e, f, g, h;
-    b = new Date, c = new Date(a.t), d = c.getTime() - b.getTime(), e = Math.floor(a.formatTime(d, "day")), f = Math.floor(a.formatTime(d, "hours")), g = Math.floor(a.formatTime(d, "minutes")), h = Math.floor(a.formatTime(d, "seconds"))
+    (b = new Date()),
+      (c = new Date(a.t)),
+      (d = c.getTime() - b.getTime()),
+      (e = Math.floor(a.formatTime(d, "day"))),
+      (f = Math.floor(a.formatTime(d, "hours"))),
+      (g = Math.floor(a.formatTime(d, "minutes"))),
+      (h = Math.floor(a.formatTime(d, "seconds")));
     //console.log(a.d.innerText + a.h.innerText + a.m.innerText + a.s.innerText);
     var dd = e + f + g + h;
     if (dd <= 0) {
-      $('.tlayer').fadeOut(150);
-      $('#countdown').hide();
+      $(".tlayer").fadeOut(150);
+      $("#countdown").hide();
       window.location.reload();
     }
   },
   formatNumber: function (a) {
-    if (a <= 0) { a = 0 }
-    return a = a.toString(), a[1] ? a : "0" + a
+    if (a <= 0) {
+      a = 0;
+    }
+    return (a = a.toString()), a[1] ? a : "0" + a;
   },
   formatTime: function (a, b) {
     switch (b) {
       case "day":
         return a / 1e3 / 60 / 60 / 24;
       case "hours":
-        return a / 1e3 / 60 / 60 % 24;
+        return (a / 1e3 / 60 / 60) % 24;
       case "minutes":
-        return a / 1e3 / 60 % 60;
+        return (a / 1e3 / 60) % 60;
       case "seconds":
-        return a / 1e3 % 60
+        return (a / 1e3) % 60;
     }
-  }
+  },
 };

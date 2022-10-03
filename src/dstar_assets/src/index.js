@@ -4,7 +4,7 @@ import { NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID } from 
 import { generate_dstar_key, import_dstar_key } from "./util.js";
 import { rsa_encrypt, rsa_decrypt, cbor_sha256 } from "./util.js";
 import { dstarjs, countDownTime } from "./init.js";
-import 'tui-pagination/dist/tui-pagination.css';
+import "tui-pagination/dist/tui-pagination.css";
 
 // import { getLedgerActor } from "./util.js";
 // import { IISortType } from "../../declarations/dstar.did.js";
@@ -12,9 +12,7 @@ import 'tui-pagination/dist/tui-pagination.css';
 // import { HttpAgent } from "@dfinity/agent";
 
 let whitelist = [canisterId, NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID];
-let host = (process.env.NODE_ENV && process.env.NODE_ENV !== "production")
-  ? "http://localhost:8080"
-  : "https://identity.ic0.app";
+let host = process.env.NODE_ENV && process.env.NODE_ENV !== "production" ? "http://localhost:8080" : "https://identity.ic0.app";
 
 let dstarApp = {
   key: null,
@@ -35,7 +33,7 @@ async function getDstarActor() {
   dstarActor = await window.ic.plug.createActor({
     canisterId: canisterId,
     interfaceFactory: idlFactory,
-  })
+  });
   return dstarActor;
 }
 
@@ -51,7 +49,7 @@ async function refresh_dstar(opt) {
   let resp = await actor.searchList(opt);
   let lists = resp.data;
   for (let i = 0; i < lists.length; i++) {
-    lists[i].icp_price = Number(lists[i].price * 1000n / BigInt(100_000_000)) / 1000;
+    lists[i].icp_price = Number((lists[i].price * 1000n) / BigInt(100_000_000)) / 1000;
     lists[i].usd_price = lists[i].icp_price * icpusd;
     lists[i].star_en = star_str(lists[i].star);
     lists[i].lockSecond = Number(lists[i].lockSecond);
@@ -87,7 +85,6 @@ $(document).ready(async function () {
     //   }
     //   const principalId = await window.ic.plug.agent.getPrincipal();
     //   console.log(`Plug's user principal Id is ${principalId}`);
-
     //   dstarjs.setuser(principalId.toText());
     //   dstar_key_init();
     //   load_tx_recored();
@@ -95,7 +92,6 @@ $(document).ready(async function () {
   }
   init_dstar();
 });
-
 
 async function do_connect() {
   try {
@@ -105,7 +101,7 @@ async function do_connect() {
     console.log(`Plug's user principal Id is ${principalId}`);
 
     if (process.env.NODE_ENV !== "production") {
-      window.ic.plug.agent.fetchRootKey().catch(err => {
+      window.ic.plug.agent.fetchRootKey().catch((err) => {
         console.warn("Unable to fetch root key. Check to ensure that your local replica is running");
         console.error(err);
       });
@@ -122,7 +118,7 @@ async function do_connect() {
 
     return true;
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
   return false;
@@ -139,9 +135,9 @@ async function do_buy(id) {
     do_transfer(resp[0]);
   } else {
     dstarjs.paying(0);
-    alert('You are not allowed to buy it or It Locked by other user!');
+    alert("You are not allowed to buy it or It Locked by other user!");
   }
-};
+}
 
 async function do_transfer(payinfo) {
   if (!dstarjs.isauth()) {
@@ -193,44 +189,49 @@ async function load_user_star() {
   let actor = await getDstarActor();
   let star_num = await actor.getStar();
   // two decimal
-  let star_count = Number(star_num * 100n / 100_000_000n) / 100;
-  console.log('star => ', star_count);
+  let star_count = Number((star_num * 100n) / 100_000_000n) / 100;
+  console.log("star => ", star_count);
   dstarjs.renderStar(star_count);
 }
 
 async function load_tx_recored() {
   let actor = await getDstarActor();
-  let txlists = await actor.getTxList();
-  let lists = [];
 
-  for (let i = 0; i < txlists.length; i++) {
-    let el = txlists[i];
-    let data = {
-      id: el.pay.id,
-      secret: el.secret,
-      pay: el.pay,
-    };
+  try {
+    let txlists = await actor.getTxList();
+    let lists = [];
 
-    if (data.secret !== "" && dstarApp.key) {
-      data.secret = await rsa_decrypt(data.secret, dstarApp.key.privateKey)
+    for (let i = 0; i < txlists.length; i++) {
+      let el = txlists[i];
+      let data = {
+        id: el.pay.id,
+        secret: el.secret,
+        pay: el.pay,
+      };
+
+      if (data.secret !== "" && dstarApp.key) {
+        data.secret = await rsa_decrypt(data.secret, dstarApp.key.privateKey);
+      }
+
+      if (el.block.length > 0) {
+        let block = el.block[0];
+        data.block = block;
+        // console.log(block.transaction);
+        data.hash = cbor_sha256(block.transaction); //uint2hex(block.parent_hash[0].inner);
+        let stamp = Number(BigInt(block.timestamp.timestamp_nanos) / BigInt(1e6));
+        data.stamp = stamp;
+        data.time = formattime(data.stamp);
+        data.icp_price = Number((data.pay.price * 100_000n) / 100_000_000n) / 100_000;
+        data.from = block.transaction.transfer.Send.from;
+        data.to = block.transaction.transfer.Send.to;
+        // data.icp_fee = Number(data.pay.price * 100_000n / 100_000_000n) / 100_000;
+      }
+      lists.push(data);
     }
-
-    if (el.block.length > 0) {
-      let block = el.block[0];
-      data.block = block
-      // console.log(block.transaction);
-      data.hash = cbor_sha256(block.transaction);//uint2hex(block.parent_hash[0].inner);
-      let stamp = Number(BigInt(block.timestamp.timestamp_nanos) / BigInt(1e6));
-      data.stamp = stamp;
-      data.time = formattime(data.stamp);
-      data.icp_price = Number(data.pay.price * 100_000n / 100_000_000n) / 100_000;
-      data.from = block.transaction.transfer.Send.from
-      data.to = block.transaction.transfer.Send.to
-      // data.icp_fee = Number(data.pay.price * 100_000n / 100_000_000n) / 100_000;
-    }
-    lists.push(data);
+    dstarjs.renderTx(lists);
+  } catch (e) {
+    dstarjs.renderTxErr();
   }
-  dstarjs.renderTx(lists);
 }
 
 async function dstar_key_init() {
