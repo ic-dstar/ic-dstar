@@ -180,7 +180,7 @@ export const dstarjs = {
       return;
     }
 
-    $("#ii-order-list").html("<tr><td col='6'>load error, please click the refresh again! </div>");
+    $("#ii-order-list").html("<tr><td colspan='6'>load error, please click the refresh again! </td></tr>");
   },
 
   paying(status) {
