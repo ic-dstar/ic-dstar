@@ -167,17 +167,18 @@ a {
   cursor: pointer;
 }
 .connect .box {
-  margin: 4px;
-  background: url(../img/plug-logo.png) #ffffff no-repeat 10px center;
-  background-size: 8%;
+  margin: 3px;
+  background: #ffffff;
   border-radius: 36px;
   font-family: "gothic";
   color: #000000;
+  position: relative;
 }
 .connect .box i {
   width: 11px;
   height: 6px;
   display: inline-block;
+  margin-left: 5px;
 }
 .connect .box i.up {
   background: url(../img/arrow-up.svg) no-repeat right center;
@@ -186,6 +187,37 @@ a {
 .connect .box i.down {
   background: url(../img/arrow-down.svg) no-repeat right center;
   background-size: 11px 6px;
+}
+.connect .box .login {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  display: none;
+}
+.connect .box .login ul {
+  width: 130px;
+}
+.connect .box .login li {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s linear;
+}
+.connect .box .login li:last-child {
+  padding: 10px 20px;
+}
+.connect .box .login li:hover {
+  transition: all 0.3s linear;
+  background-color: #f4f4f4;
+}
+.connect .box .login li span {
+  padding-left: 10px;
 }
 /* banner */
 .banner-bg {

@@ -16,11 +16,12 @@
     "copy:types": "rsync -avr .dfx/$(echo ${DFX_NETWORK:-'**'})/canisters/** --exclude='assets/' --exclude='idl/' --exclude='*.wasm' --delete src/declarations"
   },
   "devDependencies": {
-    "@dfinity/agent": "^0.19.3",
-    "@dfinity/candid": "^0.19.3",
-    "@dfinity/principal": "^0.19.3",
-    "@dfinity/auth-client": "^0.19.3",
-    "@dfinity/identity": "^0.19.3",
+    "@dfinity/agent": "^0.20.2",
+    "@dfinity/auth-client": "^0.20.2",
+    "@dfinity/candid": "^0.20.2",
+    "@dfinity/identity": "^0.20.2",
+    "@dfinity/ledger-icp": "^2.1.2",
+    "@dfinity/principal": "^0.20.2",
     "assert": "2.0.0",
     "buffer": "6.0.3",
     "copy-webpack-plugin": "^9.0.1",
@@ -30,9 +31,9 @@
     "stream-browserify": "3.0.0",
     "terser-webpack-plugin": "5.1.1",
     "util": "0.12.3",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^3.11.2",
-    "webpack": "5.28.0"
+    "webpack": "5.28.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "browserslist": [
     "last 2 chrome version",

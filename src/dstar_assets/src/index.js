@@ -4,6 +4,7 @@ import { NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID } from 
 import { generate_dstar_key, import_dstar_key } from "./util.js";
 import { rsa_encrypt, rsa_decrypt, cbor_sha256 } from "./util.js";
 import { dstarjs, countDownTime } from "./init.js";
+import ledgerIDL from "./candid/ledger.did.js";
 import "tui-pagination/dist/tui-pagination.css";
 
 // import { getLedgerActor } from "./util.js";
@@ -12,7 +13,7 @@ import "tui-pagination/dist/tui-pagination.css";
 // import { HttpAgent } from "@dfinity/agent";
 
 let whitelist = [canisterId, NNS_CANISTER_ID, LEDGER_CANISTER_ID, CYCLES_MINTING_CANISTER_ID];
-let host = process.env.NODE_ENV && process.env.NODE_ENV !== "production" ? "http://localhost:8080" : "https://identity.ic0.app";
+let host = process.env.NODE_ENV && process.env.NODE_ENV !== "production" ? "http://localhost:8080/" : "https://ic0.app";
 
 let dstarApp = {
   key: null,
@@ -20,6 +21,7 @@ let dstarApp = {
 
 let dstarActor = null;
 let icpusd = 0;
+let login_type = "";
 
 async function getDstarActor() {
   if (!dstarjs.isauth()) {
@@ -30,10 +32,19 @@ async function getDstarActor() {
     return dstarActor;
   }
 
-  dstarActor = await window.ic.plug.createActor({
-    canisterId: canisterId,
-    interfaceFactory: idlFactory,
-  });
+  if (login_type == "bitfinity") {
+    dstarActor = await window.ic.infinityWallet.createActor({
+      canisterId: canisterId,
+      interfaceFactory: idlFactory,
+      host: host,
+    });
+  } else {
+    dstarActor = await window.ic.plug.createActor({
+      canisterId: canisterId,
+      interfaceFactory: idlFactory,
+    });
+  }
+
   return dstarActor;
 }
 
@@ -93,12 +104,58 @@ $(document).ready(async function () {
   init_dstar();
 });
 
-async function do_connect() {
+async function do_connect(tp) {
+  let res = false;
+  if (tp == "plug") {
+    res = await do_connect_plug();
+  } else {
+    res = await do_connect_bitfinity();
+  }
+  return res;
+}
+
+async function do_connect_bitfinity() {
+  try {
+    let connected = await window.ic.infinityWallet.isConnected();
+    if (!connected) {
+      connected = await window.ic.infinityWallet.requestConnect({ whitelist });
+    }
+    if (!connected) return false;
+    const principalId = await window.ic.infinityWallet.getPrincipal();
+    console.log(`Bitfinity's user principal Id is ${principalId}`);
+    login_type = "bitfinity";
+
+    // if (process.env.NODE_ENV !== "production") {
+    //   window.ic.infinityWallet.agent.fetchRootKey().catch((err) => {
+    //     console.warn("Unable to fetch root key. Check to ensure that your local replica is running");
+    //     console.error(err);
+    //   });
+    // }
+
+    dstarjs.setuser(principalId.toText());
+    await getDstarActor();
+
+    {
+      dstarjs.refreshII();
+      dstar_key_init();
+      load_user_info();
+    }
+
+    return true;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return false;
+}
+
+async function do_connect_plug() {
   try {
     let connected = await window.ic.plug.requestConnect({ whitelist, host });
     if (!connected) return false;
     const principalId = await window.ic.plug.agent.getPrincipal();
     console.log(`Plug's user principal Id is ${principalId}`);
+    login_type = "plug";
 
     if (process.env.NODE_ENV !== "production") {
       window.ic.plug.agent.fetchRootKey().catch((err) => {
@@ -139,6 +196,39 @@ async function do_buy(id) {
   }
 }
 
+async function transfer_bitfinity(params) {
+  let result = {
+    height: null,
+  };
+  console.log(get_account_id(params.to.toString(), 0));
+  const TRANSFER_ICP_TX = {
+    idl: ledgerIDL,
+    canisterId: LEDGER_CANISTER_ID,
+    methodName: "send_dfx",
+    args: [
+      {
+        to: get_account_id(params.to, 0),
+        fee: { e8s: BigInt(10000) },
+        amount: { e8s: params.amount },
+        memo: params.opts && params.opts.memo ? BigInt(params.opts.memo) : BigInt("123"),
+        from_subaccount: [], // For now, using default subaccount to handle ICP
+        created_at_time: [],
+      },
+    ],
+    onSuccess: async (res) => {
+      console.log("transferred icp successfully", res);
+      result.height = res;
+    },
+    onFail: (res) => {
+      console.log("transfer icp error", res);
+    },
+  };
+
+  await window.ic.infinityWallet.batchTransactions([TRANSFER_ICP_TX], { host: undefined });
+  console.log("Done!", result);
+  return result;
+}
+
 async function do_transfer(payinfo) {
   if (!dstarjs.isauth()) {
     return;
@@ -158,7 +248,12 @@ async function do_transfer(payinfo) {
   // console.log(payinfo);
   // console.log(params);
   try {
-    const result = await window.ic.plug.requestTransfer(params);
+    let result = null;
+    if (login_type == "bitfinity") {
+      result = await transfer_bitfinity(params);
+    } else {
+      result = await window.ic.plug.requestTransfer(params);
+    }
     if (result && result.height) {
       console.log(result);
       dstarjs.paying(3);
@@ -216,8 +311,8 @@ async function load_tx_recored() {
       if (el.block.length > 0) {
         let block = el.block[0];
         data.block = block;
-        // console.log(block.transaction);
-        data.hash = cbor_sha256(block.transaction); //uint2hex(block.parent_hash[0].inner);
+        // data.hash = cbor_sha256(block.transaction); //
+        data.hash = uint2hex(block.parent_hash[0].inner);
         let stamp = Number(BigInt(block.timestamp.timestamp_nanos) / BigInt(1e6));
         data.stamp = stamp;
         data.time = formattime(data.stamp);
@@ -230,6 +325,7 @@ async function load_tx_recored() {
     }
     dstarjs.renderTx(lists);
   } catch (e) {
+    console.log(e);
     dstarjs.renderTxErr();
   }
 }

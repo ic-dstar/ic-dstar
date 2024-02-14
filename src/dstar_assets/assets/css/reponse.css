@@ -1,71 +1,266 @@
 /* pc */
-@media (min-width: 1025px){
-	.layout{max-width: 1200px;}
-	.connect .box{padding: 5px 10px 5px 30px;}
-	.banner{display: flex;width: 1200px;}
-	.tbox{width: 500px;margin-left:-250px;margin-top:-150px;left:50%;}
-	#countdown{width:666px;margin-left:-333px;margin-top:-150px;left:50%;padding: 30px 50px 40px 50px;}
-} 
+@media (min-width: 1025px) {
+  .layout {
+    max-width: 1200px;
+  }
+  .connect .box {
+    padding: 8px 15px;
+  }
+  .banner {
+    display: flex;
+    width: 1200px;
+  }
+  .tbox {
+    width: 500px;
+    margin-left: -250px;
+    margin-top: -150px;
+    left: 50%;
+  }
+  #countdown {
+    width: 666px;
+    margin-left: -333px;
+    margin-top: -150px;
+    left: 50%;
+    padding: 30px 50px 40px 50px;
+  }
+}
 /* ipad + ipad pro */
 @media (min-width: 481px) and (max-width: 1024px) {
-	.layout{padding: 0 15px;}
-	.connect .box{margin: 3px;padding: 5px 15px 5px 30px;}
-	.banner{width: 100%;padding: 15px;}
-	.banner img{width: 100%;}
-	.searchfld{width: 92%;margin: 50px auto;height: 60px;}
-	.mobile-hide{display: none;}
-	.list{width: 31%;padding: 15px;margin-top: 30px;}
-	.list .number{padding: 15px 0;font-size: 40px;}
-	.lockbtn{padding: 10px 0;bottom: 25px;left: 15px;right: 15px;opacity: 1;}
-	.orderbox{width: 100%;padding: 0 15px;}
-	.tbox{width: 500px;margin-left:-250px;left:50%;margin-top: -150px;}
-	#countdown{width:666px;margin-left:-333px;margin-top:-150px;left:50%;padding: 30px 50px;}
-	.transation{max-height: 400px;overflow-x: auto;}
+  .layout {
+    padding: 0 15px;
+  }
+  .connect .box {
+    margin: 3px;
+    padding: 5px 15px 5px 30px;
+  }
+  .banner {
+    width: 100%;
+    padding: 15px;
+  }
+  .banner img {
+    width: 100%;
+  }
+  .searchfld {
+    width: 92%;
+    margin: 50px auto;
+    height: 60px;
+  }
+  .mobile-hide {
+    display: none;
+  }
+  .list {
+    width: 31%;
+    padding: 15px;
+    margin-top: 30px;
+  }
+  .list .number {
+    padding: 15px 0;
+    font-size: 40px;
+  }
+  .lockbtn {
+    padding: 10px 0;
+    bottom: 25px;
+    left: 15px;
+    right: 15px;
+    opacity: 1;
+  }
+  .orderbox {
+    width: 100%;
+    padding: 0 15px;
+  }
+  .tbox {
+    width: 500px;
+    margin-left: -250px;
+    left: 50%;
+    margin-top: -150px;
+  }
+  #countdown {
+    width: 666px;
+    margin-left: -333px;
+    margin-top: -150px;
+    left: 50%;
+    padding: 30px 50px;
+  }
+  .transation {
+    max-height: 400px;
+    overflow-x: auto;
+  }
 }
 /* phone */
-@media (max-width: 500px) { 
-	.layout{padding: 0 15px;}
-	.header{height: 50px;border-bottom: 1px solid #e8e8e8;}
-	.logo{height: 30px;margin: 10px 0;}
-	.logo img{height: 30px;}
-	.connect .box{margin: 2px;padding: 3px 10px 3px 30px;}
-	.banner{width: 100%;padding: 15px;text-align: center;}
-	.banner div img{display: none;}
-	.banner h1{font-size: 24px;}
-	.banner a{padding: 10px 25px;}
-	.searchfld .input{padding-left: 20px;}
-	.searchfld .input::placeholder{font-size: 12px;}
-	.searchfld{width: 90%;margin: 30px auto;height: 46px;}
-	.searchfld .sbtn{width: 22%;font-size: 14px;}
-	.mobile{display: block;}
-	.mobile-hide{display: none;}
-	h2{font-size: 28px;padding: 0 0 15px 0;}
-	.fliter{width: 100%;}
-	.fliter .item{margin-right: 20px;}
-	.list{width: 48%;padding: 15px;margin-top: 20px;}
-	.score{height: 14px;}
-	.score-one{background: url(../img/diamond-one.svg) no-repeat left center;background-size: 101px 14px;}
-	.score-two{background: url(../img/diamond-two.svg) no-repeat left center;background-size: 101px 14px}
-	.score-three{background: url(../img/diamond-three.svg) no-repeat left center;background-size: 101px 14px}
-	.score-four{background: url(../img/diamond-four.png) no-repeat left center;background-size: 101px 14px}
-	.score-five{background: url(../img/diamond-five.png) no-repeat left center;background-size: 101px 14px}
-	.list .number{padding: 15px 0;font-size: 30px;}
-	.list .number span{font-size: 12px;}
-	.list .price{font-size: 12px;background-size: 15px 7px;padding-left: 20px;}
-	.list .price span{font-size: 12px;}
-	.list .buy{padding: 6px 0;font-size: 14px;margin-top: 20px;}
-	.lockbtn{padding: 6px 0;bottom: 25px;left: 15px;right: 15px;opacity: 1;}
-	dl{margin-top: 20px;width: 100%;}
-	.loading{padding: 30px 0;font-size: 22px;}
-	.orderbox{width: 100%;}
-	.layer, .orderfld{top: 50px;}
-	.orderfld{padding: 0 15px;}
-	.orderbox{width: 100%;}
-	.orderbox .title{font-size: 22px;padding: 15px 0;}
-	.transation{max-height: 400px;overflow-x: auto;}
-	.tbox{width: 90%;left:5%;top: 25%;}
-	#countdown{width:90%;left:5%;top: 30%;padding:30px;}
-	#countdown h3{font-size: 30px;}
-	#countdown div{font-weight: bold;font-size: 34px;}
-	#countdown span{color: #999;font-weight: normal;font-size: 14px;padding-bottom: 20px;display: block;}
+@media (max-width: 500px) {
+  .layout {
+    padding: 0 15px;
+  }
+  .header {
+    height: 50px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .logo {
+    height: 30px;
+    margin: 10px 0;
+  }
+  .logo img {
+    height: 30px;
+  }
+  .connect .box {
+    margin: 2px;
+    padding: 5px 10px;
+  }
+  .connect .box .login {
+    top: 35px;
+  }
+  .banner {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+  }
+  .banner div img {
+    display: none;
+  }
+  .banner h1 {
+    font-size: 24px;
+  }
+  .banner a {
+    padding: 10px 25px;
+  }
+  .searchfld .input {
+    padding-left: 20px;
+  }
+  .searchfld .input::placeholder {
+    font-size: 12px;
+  }
+  .searchfld {
+    width: 90%;
+    margin: 30px auto;
+    height: 46px;
+  }
+  .searchfld .sbtn {
+    width: 22%;
+    font-size: 14px;
+  }
+  .mobile {
+    display: block;
+  }
+  .mobile-hide {
+    display: none;
+  }
+  h2 {
+    font-size: 28px;
+    padding: 0 0 15px 0;
+  }
+  .fliter {
+    width: 100%;
+  }
+  .fliter .item {
+    margin-right: 20px;
+  }
+  .list {
+    width: 48%;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  .score {
+    height: 14px;
+  }
+  .score-one {
+    background: url(../img/diamond-one.svg) no-repeat left center;
+    background-size: 101px 14px;
+  }
+  .score-two {
+    background: url(../img/diamond-two.svg) no-repeat left center;
+    background-size: 101px 14px;
+  }
+  .score-three {
+    background: url(../img/diamond-three.svg) no-repeat left center;
+    background-size: 101px 14px;
+  }
+  .score-four {
+    background: url(../img/diamond-four.png) no-repeat left center;
+    background-size: 101px 14px;
+  }
+  .score-five {
+    background: url(../img/diamond-five.png) no-repeat left center;
+    background-size: 101px 14px;
+  }
+  .list .number {
+    padding: 15px 0;
+    font-size: 30px;
+  }
+  .list .number span {
+    font-size: 12px;
+  }
+  .list .price {
+    font-size: 12px;
+    background-size: 15px 7px;
+    padding-left: 20px;
+  }
+  .list .price span {
+    font-size: 12px;
+  }
+  .list .buy {
+    padding: 6px 0;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  .lockbtn {
+    padding: 6px 0;
+    bottom: 25px;
+    left: 15px;
+    right: 15px;
+    opacity: 1;
+  }
+  dl {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .loading {
+    padding: 30px 0;
+    font-size: 22px;
+  }
+  .orderbox {
+    width: 100%;
+  }
+  .layer,
+  .orderfld {
+    top: 50px;
+  }
+  .orderfld {
+    padding: 0 15px;
+  }
+  .orderbox {
+    width: 100%;
+  }
+  .orderbox .title {
+    font-size: 22px;
+    padding: 15px 0;
+  }
+  .transation {
+    max-height: 400px;
+    overflow-x: auto;
+  }
+  .tbox {
+    width: 90%;
+    left: 5%;
+    top: 25%;
+  }
+  #countdown {
+    width: 90%;
+    left: 5%;
+    top: 30%;
+    padding: 30px;
+  }
+  #countdown h3 {
+    font-size: 30px;
+  }
+  #countdown div {
+    font-weight: bold;
+    font-size: 34px;
+  }
+  #countdown span {
+    color: #999;
+    font-weight: normal;
+    font-size: 14px;
+    padding-bottom: 20px;
+    display: block;
+  }
 }

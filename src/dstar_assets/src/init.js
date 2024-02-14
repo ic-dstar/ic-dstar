@@ -44,7 +44,7 @@ export const dstarjs = {
     } else {
       let str = this.user;
       $("#order").html(str.substr(0, 11) + "..." + str.substr(-8) + '<i class="down"></i>');
-      $("#plugconnect").hide();
+      $("#wallectConnect").hide();
       $("#order").show();
     }
   },
@@ -469,17 +469,52 @@ export const dstarjs = {
       }
     });
 
+    $("#wallectConnect").click(function () {
+      let arrow = $(this).children("i");
+      let login = $(this).children(".login");
+      if (arrow.hasClass("down")) {
+        arrow.removeClass("down").addClass("up");
+        login.slideDown(200);
+      } else {
+        arrow.removeClass("up").addClass("down");
+        login.slideUp(200);
+      }
+    });
+    $(document).on("click", function (event) {
+      var target = $(event.target);
+      if (!target.closest("#wallectConnect").length) {
+        $("#wallectConnect").children(".login").slideUp();
+        $("#wallectConnect").children("i").removeClass("up").addClass("down");
+      }
+    });
+
     $("#plugconnect").click(async function () {
       if (!window.ic || !window.ic.plug) {
         window.open("https://plugwallet.ooo/", "_blank");
         return;
       }
-      $(this).html('Connecting<span class="dot"></span>');
+      // $(this).html('Connecting<span class="dot"></span>');
       self.popup(true);
       if (self.connect_handler) {
-        let res = await self.connect_handler();
+        let res = await self.connect_handler("plug");
         if (!res) {
-          $(this).html("connect to Plug");
+          console.log("connect decline");
+        }
+      }
+      self.popup(false);
+    });
+
+    $("#bitfinityconnect").click(async function () {
+      if (!window.ic || !window.ic.infinityWallet) {
+        window.open("https://wallet.bitfinity.network/", "_blank");
+        return;
+      }
+      // $(this).html('Connecting<span class="dot"></span>');
+      self.popup(true);
+      if (self.connect_handler) {
+        let res = await self.connect_handler("bitfinity");
+        if (!res) {
+          console.log("connect decline");
         }
       }
       self.popup(false);

@@ -19,8 +19,21 @@
 		<div class="layout header">
 			<div class="logo"><a href="/"><img src="/img/logo.svg" /></a></div>
 			<div class="connect">
-				<div class="box" id="plugconnect">
-					connect to plug
+				<div class="box" id="wallectConnect">
+					Connect
+					<i class="down"></i>
+					<div class="login">
+						<ul>
+							<li id="plugconnect">
+								<img src="/img/plug-logo.png" height="24" />
+								<span>Plug</span>
+							</li>
+							<li id="bitfinityconnect">
+								<img src="/img/bitfinity.png" height="18" />
+								<span>Bitfinity</span>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="box" id="order" style="display: none;">
 					<!-- uyrhg-t23vc... <i class="down"></i> -->
@@ -315,15 +328,15 @@
 		<script id="ii-record-tmpl" type="text/x-jquery-tmpl">
 			<tr class="noborder">
 				<td>${id}</td>
-				<!-- <td class="tdcolor"><div class="txt ellipsis"><a target="_blank" href="https://ic.rocks/transaction/${hash}">${hash}</a></div></td> -->
+				<!-- <td class="tdcolor"><div class="txt ellipsis"><a target="_blank" href="https://dashboard.internetcomputer.org/transaction/${hash}">${hash}</a></div></td> -->
 				<td class="tdcolor">
 					<div class="txt ellipsis">
-					<a target="_blank" href="https://ic.rocks/account/${from}">${from}</a>
+					<a target="_blank" href="https://dashboard.internetcomputer.org/account/${from}">${from}</a>
 					</div>
 				</td>
 				<td class="tdcolor">
 					<div class="txt ellipsis">
-					<a target="_blank" href="https://ic.rocks/account/${to}">${to}</a>
+					<a target="_blank" href="https://dashboard.internetcomputer.org/account/${to}">${to}</a>
 					</div>
 				</td>
 				<td>${time}</td>
