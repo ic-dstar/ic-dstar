@@ -9,11 +9,10 @@
       "type": "motoko"
     },
     "dstar_assets": {
-      "dependencies": ["dstar"],
       "frontend": {
         "entrypoint": "src/dstar_assets/src/index.html"
       },
-      "source": ["src/dstar_assets/assets", "dist/dstar_assets/"],
+      "source": ["dist/dstar_assets/"],
       "type": "assets"
     }
   },
@@ -21,13 +20,6 @@
     "build": {
       "args": "",
       "packtool": ""
-    }
-  },
-  "dfx": "0.10.0",
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:8000",
-      "type": "ephemeral"
     }
   },
   "version": 1

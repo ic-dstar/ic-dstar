@@ -16,9 +16,11 @@
     "copy:types": "rsync -avr .dfx/$(echo ${DFX_NETWORK:-'**'})/canisters/** --exclude='assets/' --exclude='idl/' --exclude='*.wasm' --delete src/declarations"
   },
   "devDependencies": {
-    "@dfinity/agent": "0.10.1",
-    "@dfinity/candid": "0.10.1",
-    "@dfinity/principal": "0.10.1",
+    "@dfinity/agent": "^0.19.3",
+    "@dfinity/candid": "^0.19.3",
+    "@dfinity/principal": "^0.19.3",
+    "@dfinity/auth-client": "^0.19.3",
+    "@dfinity/identity": "^0.19.3",
     "assert": "2.0.0",
     "buffer": "6.0.3",
     "copy-webpack-plugin": "^9.0.1",
@@ -39,9 +41,6 @@
     "last 2 edge version"
   ],
   "dependencies": {
-    "@dfinity/auth-client": "^0.10.1",
-    "@dfinity/authentication": "^0.10.1",
-    "@dfinity/identity": "^0.10.1",
     "axios": "^0.22.0",
     "crypto-js": "^4.1.1",
     "css-loader": "^6.4.0",
